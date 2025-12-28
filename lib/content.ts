@@ -133,7 +133,7 @@ export interface CommunityItem {
 export const communityContribution: CommunityItem[] = [
   {
     title: 'Michal Sela Hackathon - Safe@Home SDK',
-    year: '2024',
+    year: '2025',
     description:
       'Built an Android SDK that secretly activates when triggered, using OpenAI Whisper for transcription and GPT for real-time danger detection to alert authorities and prevent domestic violence.',
     url: 'https://drive.google.com/file/d/1ZM53c-f7dp7x9djtkTPEoVOxVhb84k2W/view?usp=sharing',
