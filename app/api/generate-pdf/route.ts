@@ -6,10 +6,6 @@ import chromium from '@sparticuz/chromium'
 export const maxDuration = 60 // 60 seconds timeout
 export const dynamic = 'force-dynamic'
 
-// Minimize Chromium size for Vercel
-chromium.setHeadlessMode = 'shell'
-chromium.setGraphicsMode = false
-
 async function getBrowser() {
   // For Vercel production
   if (process.env.VERCEL) {
