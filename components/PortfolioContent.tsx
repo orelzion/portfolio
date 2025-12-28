@@ -9,6 +9,7 @@ import { Community } from './Community'
 import { Writing } from './Writing'
 import { SideProjects } from './SideProjects'
 import { StickyCTA } from './StickyCTA'
+import { DownloadButton } from './ui/DownloadButton'
 
 function PortfolioInner() {
   const { variant, config, isTargetedVisit } = useVariant()
@@ -42,21 +43,7 @@ function PortfolioInner() {
 
           {/* Desktop Resume Download */}
           <div className="hidden md:flex justify-center md:justify-start mb-8">
-            <a
-              href={`/api/generate-pdf${variant !== 'default' ? `?ref=${variant}` : ''}`}
-              download="Orel_Zion_Resume.pdf"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[var(--accent-color)] hover:bg-[var(--accent-color-dark)] rounded-lg transition-all duration-300"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              Download Resume
-            </a>
+            <DownloadButton variant={variant} />
           </div>
 
           {/* Divider */}
