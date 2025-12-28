@@ -153,6 +153,25 @@ export const communityContribution: CommunityItem[] = [
   },
 ]
 
+export interface SideProjectItem {
+  title: string
+  year: string
+  description: string
+  url?: string
+  stats?: string
+}
+
+export const sideProjects: SideProjectItem[] = [
+  {
+    title: 'Smart Siddur',
+    year: '2010',
+    description:
+      'A comprehensive Jewish prayer book app that automatically organizes prayers based on the Hebrew calendar, supporting multiple prayer traditions (Nusachim). Serves the Jewish community worldwide.',
+    url: 'https://play.google.com/store/apps/details?id=com.karriapps.smartsiddurlite&hl=en',
+    stats: '100K+ downloads • 4.5★ (6K+ reviews)',
+  },
+]
+
 export interface WritingItem {
   title: string
   platform: string

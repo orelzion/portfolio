@@ -7,6 +7,7 @@ import { Experience } from './Experience'
 import { PublicSpeaking } from './PublicSpeaking'
 import { Community } from './Community'
 import { Writing } from './Writing'
+import { SideProjects } from './SideProjects'
 import { StickyCTA } from './StickyCTA'
 
 function PortfolioInner() {
@@ -24,6 +25,7 @@ function PortfolioInner() {
     speaking: <PublicSpeaking key="speaking" highlightTalks={config.highlightTalks} />,
     community: <Community key="community" />,
     writing: <Writing key="writing" highlighted={config.highlightWriting} />,
+    projects: <SideProjects key="projects" />,
   }
 
   // Get ordered sections based on variant priority

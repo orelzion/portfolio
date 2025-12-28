@@ -23,7 +23,7 @@ export const variants: Record<VariantKey, VariantConfig> = {
     accentColor: '#2563eb',
     accentColorDark: '#1d4ed8',
     profileImage: '/profile/profile_main.png',
-    prioritySections: ['speaking', 'community', 'experience'],
+    prioritySections: ['speaking', 'community', 'projects', 'experience'],
   },
   anthropic: {
     tagline: 'Staff Android Engineer | Product & Craft',
@@ -32,7 +32,7 @@ export const variants: Record<VariantKey, VariantConfig> = {
     accentColor: '#d4a574',
     accentColorDark: '#b8956a',
     profileImage: '/profile/profile_anthropic.png',
-    prioritySections: ['speaking', 'community', 'writing', 'experience'],
+    prioritySections: ['speaking', 'community', 'writing', 'projects', 'experience'],
     highlightKeywords: ['redesign', 'Jetpack Compose', 'chat', 'Mentoring', 'feedback'],
     highlightTalks: ['Droidcon Paris'],
     highlightWriting: true,
@@ -44,7 +44,7 @@ export const variants: Record<VariantKey, VariantConfig> = {
     accentColor: '#db0000',
     accentColorDark: '#b80000',
     profileImage: '/profile/profile_netflix.png',
-    prioritySections: ['speaking', 'community', 'experience'],
+    prioritySections: ['speaking', 'community', 'projects', 'experience'],
     highlightKeywords: ['Re-architected', 'modularization', 'CI/CD', 'performant', 'Led', 'Play Store'],
   },
   meta: {
@@ -54,7 +54,7 @@ export const variants: Record<VariantKey, VariantConfig> = {
     accentColor: '#0668E1',
     accentColorDark: '#0553b8',
     profileImage: '/profile/profile_meta.png',
-    prioritySections: ['speaking', 'community', 'experience'],
+    prioritySections: ['speaking', 'community', 'projects', 'experience'],
     highlightKeywords: ['cross-functional', 'Coordinating', 'Re-architected', 'guild', 'org', 'quickly', 'stakeholder'],
   },
 }
