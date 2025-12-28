@@ -1,59 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
-import puppeteer, { Browser } from 'puppeteer-core'
-import chromium from '@sparticuz/chromium'
+import puppeteer from 'puppeteer-core'
+import chromium from '@sparticuz/chromium-min'
 
 // Configure for Vercel serverless
 export const maxDuration = 60 // 60 seconds timeout
 export const dynamic = 'force-dynamic'
 
-// Keep browser instance between invocations (warm starts)
-let browser: Browser | null = null
-
-// Chrome args optimized for serverless (from https://dev.to/travisbeck/how-to-generate-pdfs-with-puppeteer-on-vercel-in-2024-1dm2)
-const chromeArgs = [
-  '--font-render-hinting=none',
-  '--no-sandbox',
-  '--disable-setuid-sandbox',
-  '--disable-gpu',
-  '--disable-dev-shm-usage',
-  '--disable-accelerated-2d-canvas',
-  '--disable-animations',
-  '--disable-background-timer-throttling',
-  '--disable-restore-session-state',
-  '--single-process',
-]
+// Remote Chromium executable (from https://community.vercel.com/t/sparticuz-chromium-min-working-with-vercel-for-pdf/7877)
+const CHROMIUM_REMOTE_URL = 'https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar'
 
 async function getBrowser() {
   const isLocal = process.env.NODE_ENV === 'development'
-  
-  // Reuse browser if still connected
-  if (browser?.connected) {
-    return browser
-  }
 
   if (isLocal) {
     // For local development - use installed Chrome
-    browser = await puppeteer.launch({
+    return await puppeteer.launch({
       channel: 'chrome',
       headless: true,
     })
-  } else {
-    // For Vercel production
-    browser = await puppeteer.launch({
-      args: chromeArgs,
-      executablePath: await chromium.executablePath(),
-      headless: true,
-      ignoreHTTPSErrors: true,
-    })
   }
-  
-  return browser
+
+  // For Vercel production - download chromium from remote URL
+  return await puppeteer.launch({
+    args: chromium.args,
+    executablePath: await chromium.executablePath(CHROMIUM_REMOTE_URL),
+    defaultViewport: null,
+    headless: true,
+  })
 }
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const ref = searchParams.get('ref') || ''
-  const isLocal = process.env.NODE_ENV === 'development'
 
   try {
     // Get the base URL from the request headers (works on Vercel)
@@ -94,17 +72,8 @@ export async function GET(request: NextRequest) {
       },
     })
 
-    // Close all open pages to avoid resource leaks (but keep browser for warm starts)
-    const pages = await browserInstance.pages()
-    for (const openPage of pages) {
-      await openPage.close()
-    }
-
-    // Close browser only in local dev
-    if (isLocal) {
-      await browserInstance.close()
-      browser = null
-    }
+    // Close browser after use
+    await browserInstance.close()
 
     console.log('PDF generated successfully, size:', pdf.length)
 
