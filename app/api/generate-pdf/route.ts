@@ -1,27 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import puppeteer from 'puppeteer-core'
-import chromium from '@sparticuz/chromium'
+import chromium from '@sparticuz/chromium-min'
 
-// Configure for Vercel serverless - need more memory for Chromium
+// Configure for Vercel serverless
 export const maxDuration = 60 // 60 seconds timeout
 export const dynamic = 'force-dynamic'
 
+// Chromium download URL for @sparticuz/chromium-min
+const CHROMIUM_URL = 'https://github.com/nicopolyptic/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar'
+
 async function getBrowser() {
-  // For Vercel production
+  // For Vercel production - download chromium at runtime
   if (process.env.VERCEL) {
-    const executablePath = await chromium.executablePath()
+    const executablePath = await chromium.executablePath(CHROMIUM_URL)
     console.log('Chromium executable path:', executablePath)
     
     return puppeteer.launch({
-      args: [
-        ...chromium.args,
-        '--disable-gpu',
-        '--disable-dev-shm-usage',
-        '--disable-software-rasterizer',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process',
-      ],
+      args: chromium.args,
       defaultViewport: { width: 816, height: 1056 }, // Letter size at 96 DPI
       executablePath,
       headless: true,
