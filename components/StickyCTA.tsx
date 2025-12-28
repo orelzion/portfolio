@@ -10,8 +10,8 @@ export function StickyCTA({ variant }: StickyCTAProps) {
   return (
     <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[var(--background)] via-[var(--background)] to-transparent md:hidden z-50">
       <a
-        href="/Resume.pdf"
-        download
+        href={`/api/generate-pdf${variant !== 'default' ? `?ref=${variant}` : ''}`}
+        download="Orel_Zion_Resume.pdf"
         className="flex items-center justify-center gap-2 w-full py-3.5 px-6 text-base font-semibold text-white bg-[var(--accent-color)] hover:bg-[var(--accent-color-dark)] rounded-xl shadow-lg shadow-[var(--accent-color)]/25 transition-all duration-300 active:scale-[0.98]"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

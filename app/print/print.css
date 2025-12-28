@@ -1,0 +1,337 @@
+/* Print-optimized styles for PDF generation */
+/* ATS-friendly: semantic HTML, no images for text, proper heading hierarchy */
+
+:root {
+  --accent-color: #2563eb;
+}
+
+.print-container {
+  max-width: 8.5in;
+  margin: 0 auto;
+  padding: 0.5in 0.6in;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 10pt;
+  line-height: 1.4;
+  color: #1a1a1a;
+  background: white;
+}
+
+.print-loading {
+  padding: 2rem;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+/* Header / Contact */
+.print-header {
+  text-align: center;
+  margin-bottom: 0.3in;
+  padding-bottom: 0.15in;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.print-name {
+  font-size: 22pt;
+  font-weight: 700;
+  margin: 0 0 0.1in 0;
+  color: #0f0f0f;
+  letter-spacing: 0.02em;
+}
+
+.print-contact {
+  font-size: 10pt;
+  color: #333;
+  margin-bottom: 0.05in;
+}
+
+.print-links {
+  font-size: 9pt;
+  color: #555;
+}
+
+.print-link {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.print-link:hover {
+  text-decoration: underline;
+}
+
+.print-separator {
+  margin: 0 0.15in;
+  color: #aaa;
+}
+
+/* Section styling */
+.print-section {
+  margin-bottom: 0.25in;
+  page-break-inside: avoid;
+}
+
+.print-section-title {
+  font-size: 12pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #0f0f0f;
+  margin: 0 0 0.1in 0;
+  padding-bottom: 0.05in;
+  border-bottom: 1.5px solid var(--accent-color);
+}
+
+/* Summary */
+.print-tagline {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 0.05in 0;
+}
+
+.print-description {
+  font-size: 10pt;
+  color: #333;
+  margin: 0 0 0.1in 0;
+}
+
+.print-highlights {
+  margin: 0;
+  padding-left: 0.2in;
+  font-size: 10pt;
+  color: #333;
+}
+
+.print-highlights li {
+  margin-bottom: 0.03in;
+}
+
+/* Experience */
+.print-job {
+  margin-bottom: 0.15in;
+  page-break-inside: avoid;
+}
+
+.print-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.05in;
+}
+
+.print-job-title {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+
+.print-company {
+  font-size: 10pt;
+  color: #444;
+  margin: 0;
+  font-style: italic;
+}
+
+.print-period {
+  font-size: 9pt;
+  color: #666;
+  white-space: nowrap;
+}
+
+.print-job-bullets {
+  margin: 0;
+  padding-left: 0.2in;
+  font-size: 10pt;
+  color: #333;
+}
+
+.print-job-bullets li {
+  margin-bottom: 0.03in;
+}
+
+/* Highlight styling for keywords */
+.print-highlight {
+  background-color: transparent;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* Speaking */
+.print-speaking-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08in;
+}
+
+.print-speaking-item {
+  display: flex;
+  gap: 0.15in;
+  font-size: 10pt;
+}
+
+.print-speaking-item.print-highlighted .print-event,
+.print-speaking-item.print-highlighted .print-talk-title {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.print-event {
+  font-weight: 600;
+  color: #222;
+  min-width: 1.2in;
+}
+
+.print-talk-title {
+  color: #333;
+}
+
+/* Community */
+.print-community-item {
+  margin-bottom: 0.12in;
+}
+
+.print-community-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.print-community-title {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+
+.print-year {
+  font-size: 9pt;
+  color: #666;
+}
+
+.print-community-desc {
+  font-size: 10pt;
+  color: #333;
+  margin: 0.03in 0;
+}
+
+/* Tags */
+.print-tags {
+  display: flex;
+  gap: 0.08in;
+  flex-wrap: wrap;
+  margin-top: 0.03in;
+}
+
+.print-tag {
+  font-size: 8pt;
+  color: #555;
+  background: #f0f0f0;
+  padding: 0.02in 0.06in;
+  border-radius: 2px;
+}
+
+/* Writing */
+.print-writing-item {
+  margin-bottom: 0.1in;
+}
+
+.print-writing-title {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+
+.print-writing-platform {
+  font-size: 9pt;
+  color: #666;
+  margin: 0;
+  font-style: italic;
+}
+
+.print-writing-desc {
+  font-size: 10pt;
+  color: #333;
+  margin: 0.03in 0;
+}
+
+/* Projects */
+.print-project-item {
+  margin-bottom: 0.12in;
+}
+
+.print-project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.print-project-title {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+
+.print-project-desc {
+  font-size: 10pt;
+  color: #333;
+  margin: 0.03in 0;
+}
+
+.print-project-stats {
+  font-size: 9pt;
+  color: var(--accent-color);
+  font-weight: 600;
+  margin: 0.02in 0;
+}
+
+/* URLs - visible for reference */
+.print-url {
+  font-size: 8pt;
+  color: #888;
+  word-break: break-all;
+  margin: 0.02in 0;
+}
+
+/* Print-specific media query */
+@media print {
+  .print-container {
+    padding: 0;
+    max-width: none;
+  }
+  
+  .print-section {
+    page-break-inside: avoid;
+  }
+  
+  .print-job {
+    page-break-inside: avoid;
+  }
+  
+  .print-link {
+    color: #333;
+  }
+  
+  /* Show URLs after links when printing */
+  .print-link::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #888;
+  }
+}
+
+/* Screen display improvements */
+@media screen {
+  body {
+    background: #f5f5f5;
+    margin: 0;
+  }
+  
+  .print-container {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 0.5in auto;
+  }
+}
+
