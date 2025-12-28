@@ -18,6 +18,7 @@ export function ProfileImage({ src, alt, className = '' }: ProfileImageProps) {
         height={200}
         priority
         className="object-cover w-full h-full"
+        loading="eager"
       />
     </div>
   )

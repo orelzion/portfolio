@@ -18,11 +18,14 @@ export function Experience({ highlightKeywords = [] }: ExperienceProps) {
 
   return (
     <SectionWrapper title="Experience">
-      <div className="space-y-8">
+      <div className="space-y-8" itemScope itemType="https://schema.org/Person">
         {experience.map((job) => (
           <article
             key={`${job.company}-${job.title}`}
             className="relative pl-6 md:pl-8 border-l-2 border-zinc-200 dark:border-zinc-800"
+            itemProp="worksFor"
+            itemScope
+            itemType="https://schema.org/Organization"
           >
             {/* Timeline dot */}
             <div
@@ -36,15 +39,15 @@ export function Experience({ highlightKeywords = [] }: ExperienceProps) {
               {/* Company & Title */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-3">
                 <div>
-                  <h3 className="text-lg font-bold text-[var(--accent-color)] transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-[var(--accent-color)] transition-colors duration-300" itemProp="name">
                     {job.company}
                   </h3>
-                  <p className="text-base font-medium text-zinc-900 dark:text-zinc-100">
+                  <p className="text-base font-medium text-zinc-900 dark:text-zinc-100" itemProp="jobTitle">
                     {job.title}
                   </p>
                 </div>
                 <span className="text-sm text-zinc-500 dark:text-zinc-500 font-mono">
-                  {job.period}
+                  <time>{job.period}</time>
                 </span>
               </div>
 
