@@ -97,8 +97,11 @@ export async function GET(request: NextRequest) {
     await browser.close()
     console.log('PDF generated successfully, size:', pdf.length)
 
+    // Convert Uint8Array to Buffer for NextResponse
+    const pdfBuffer = Buffer.from(pdf)
+
     // Return PDF as downloadable file
-    return new NextResponse(pdf, {
+    return new NextResponse(pdfBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': 'attachment; filename="Orel_Zion_Resume.pdf"',
