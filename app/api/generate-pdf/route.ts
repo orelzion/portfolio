@@ -1,57 +1,59 @@
 import { NextRequest, NextResponse } from 'next/server'
-import puppeteer from 'puppeteer-core'
-import chromium from '@sparticuz/chromium-min'
+import puppeteer, { Browser } from 'puppeteer-core'
+import chromium from '@sparticuz/chromium'
 
 // Configure for Vercel serverless
 export const maxDuration = 60 // 60 seconds timeout
 export const dynamic = 'force-dynamic'
 
-// Chromium download URL for @sparticuz/chromium-min
-const CHROMIUM_URL = 'https://github.com/nicopolyptic/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar'
+// Keep browser instance between invocations (warm starts)
+let browser: Browser | null = null
+
+// Chrome args optimized for serverless (from https://dev.to/travisbeck/how-to-generate-pdfs-with-puppeteer-on-vercel-in-2024-1dm2)
+const chromeArgs = [
+  '--font-render-hinting=none',
+  '--no-sandbox',
+  '--disable-setuid-sandbox',
+  '--disable-gpu',
+  '--disable-dev-shm-usage',
+  '--disable-accelerated-2d-canvas',
+  '--disable-animations',
+  '--disable-background-timer-throttling',
+  '--disable-restore-session-state',
+  '--single-process',
+]
 
 async function getBrowser() {
-  // For Vercel production - download chromium at runtime
-  if (process.env.VERCEL) {
-    const executablePath = await chromium.executablePath(CHROMIUM_URL)
-    console.log('Chromium executable path:', executablePath)
-    
-    return puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: { width: 816, height: 1056 }, // Letter size at 96 DPI
-      executablePath,
+  const isLocal = process.env.NODE_ENV === 'development'
+  
+  // Reuse browser if still connected
+  if (browser?.connected) {
+    return browser
+  }
+
+  if (isLocal) {
+    // For local development - use installed Chrome
+    browser = await puppeteer.launch({
+      channel: 'chrome',
       headless: true,
     })
+  } else {
+    // For Vercel production
+    browser = await puppeteer.launch({
+      args: chromeArgs,
+      executablePath: await chromium.executablePath(),
+      headless: true,
+      ignoreHTTPSErrors: true,
+    })
   }
-
-  // For local development - try to find Chrome
-  const possiblePaths = [
-    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    '/usr/bin/google-chrome',
-    '/usr/bin/chromium-browser',
-    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-    'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
-  ]
-
-  for (const executablePath of possiblePaths) {
-    try {
-      return await puppeteer.launch({
-        executablePath,
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      })
-    } catch {
-      continue
-    }
-  }
-
-  throw new Error('Could not find Chrome installation')
+  
+  return browser
 }
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const ref = searchParams.get('ref') || ''
-
-  let browser = null
+  const isLocal = process.env.NODE_ENV === 'development'
 
   try {
     // Get the base URL from the request headers (works on Vercel)
@@ -61,35 +63,49 @@ export async function GET(request: NextRequest) {
 
     console.log('PDF Generation - baseUrl:', baseUrl, 'ref:', ref)
 
-    browser = await getBrowser()
-    const page = await browser.newPage()
+    const browserInstance = await getBrowser()
+    const page = await browserInstance.newPage()
+    
+    await page.emulateMediaType('print')
 
     // Navigate to print page with variant
     const printUrl = `${baseUrl}/print${ref ? `?ref=${ref}` : ''}`
     console.log('Navigating to:', printUrl)
     
-    await page.goto(printUrl, {
+    const response = await page.goto(printUrl, {
       waitUntil: 'networkidle0',
-      timeout: 20000,
+      timeout: 30000,
     })
 
-    // Wait a bit for any CSS to fully load
-    await new Promise((resolve) => setTimeout(resolve, 300))
+    if (!response || !response.ok()) {
+      throw new Error('Failed to load the page for PDF generation')
+    }
 
     // Generate PDF
     const pdf = await page.pdf({
       format: 'letter',
       printBackground: true,
+      omitBackground: true,
       margin: {
         top: '0.5in',
         right: '0.5in',
         bottom: '0.5in',
         left: '0.5in',
       },
-      preferCSSPageSize: false,
     })
 
-    await browser.close()
+    // Close all open pages to avoid resource leaks (but keep browser for warm starts)
+    const pages = await browserInstance.pages()
+    for (const openPage of pages) {
+      await openPage.close()
+    }
+
+    // Close browser only in local dev
+    if (isLocal) {
+      await browserInstance.close()
+      browser = null
+    }
+
     console.log('PDF generated successfully, size:', pdf.length)
 
     // Convert Uint8Array to Buffer for NextResponse
@@ -105,16 +121,8 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error('PDF generation error:', error)
-    
-    if (browser) {
-      try {
-        await browser.close()
-      } catch (closeError) {
-        console.error('Error closing browser:', closeError)
-      }
-    }
 
-    // Return error response so we can debug (instead of silent fallback)
+    // Return error response so we can debug
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     return new NextResponse(
       JSON.stringify({ 
