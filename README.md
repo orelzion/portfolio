@@ -9,7 +9,8 @@ A dynamic, mobile-first portfolio built with Next.js 14 that adapts its content 
 - **Variant-Specific Profiles** - Different profile images per referral source
 - **Smart Content Highlighting** - Experience bullets and talks highlighted based on relevance
 - **Mobile-First Design** - Responsive layout with sticky CTA on mobile
-- **Vercel Analytics** - Track engagement across variants and link clicks
+- **Simple Analytics** - Privacy-first analytics tracking page views and link clicks
+- **Vercel Speed Insights** - Core Web Vitals monitoring
 
 ## Variants
 
@@ -80,7 +81,8 @@ Edit `lib/content.ts` to update:
 
 - **Framework**: Next.js 14 (App Router)
 - **Styling**: Tailwind CSS
-- **Analytics**: Vercel Analytics
+- **Analytics**: Simple Analytics
+- **Performance**: Vercel Speed Insights
 - **Deployment**: Vercel
 
 ## License

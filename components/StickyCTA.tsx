@@ -1,6 +1,5 @@
 'use client'
 
-import { track } from '@vercel/analytics'
 import type { VariantKey } from '@/lib/variants'
 
 interface StickyCTAProps {
@@ -13,7 +12,6 @@ export function StickyCTA({ variant }: StickyCTAProps) {
       <a
         href="/Resume.pdf"
         download
-        onClick={() => track('resume_download', { ref: variant, device: 'mobile' })}
         className="flex items-center justify-center gap-2 w-full py-3.5 px-6 text-base font-semibold text-white bg-[var(--accent-color)] hover:bg-[var(--accent-color-dark)] rounded-xl shadow-lg shadow-[var(--accent-color)]/25 transition-all duration-300 active:scale-[0.98]"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

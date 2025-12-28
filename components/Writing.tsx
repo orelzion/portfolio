@@ -1,6 +1,5 @@
 'use client'
 
-import { track } from '@vercel/analytics'
 import { SectionWrapper } from './ui/SectionWrapper'
 import { writing } from '@/lib/content'
 
@@ -18,7 +17,6 @@ export function Writing({ highlighted = false }: WritingProps) {
             href={article.url}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => track('article_click', { title: article.title, platform: article.platform })}
             className={`group block p-6 rounded-xl transition-all duration-300 ${
               highlighted
                 ? 'bg-[var(--accent-color)]/10 border-2 border-[var(--accent-color)]/50 hover:border-[var(--accent-color)]'

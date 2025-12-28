@@ -1,7 +1,6 @@
 'use client'
 
 import { Suspense, useEffect } from 'react'
-import { track } from '@vercel/analytics'
 import { useVariant } from '@/hooks/useVariant'
 import { Hero } from './Hero'
 import { Experience } from './Experience'
@@ -44,7 +43,6 @@ function PortfolioInner() {
             <a
               href="/Resume.pdf"
               download
-              onClick={() => track('resume_download', { ref: variant, device: 'desktop' })}
               className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[var(--accent-color)] hover:bg-[var(--accent-color-dark)] rounded-lg transition-all duration-300"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,6 +1,5 @@
 'use client'
 
-import { track } from '@vercel/analytics'
 import { ProfileImage } from './ui/ProfileImage'
 import { LocationBadge } from './ui/LocationBadge'
 import { personalInfo } from '@/lib/content'
@@ -51,7 +50,6 @@ export function Hero({ config, isTargetedVisit, variant }: HeroProps) {
           <div className="flex flex-wrap justify-center md:justify-start gap-3">
             <a
               href={`mailto:${personalInfo.email}`}
-              onClick={() => track('email_click', { ref: variant })}
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,7 +63,6 @@ export function Hero({ config, isTargetedVisit, variant }: HeroProps) {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => track('social_click', { platform: link.label, ref: variant })}
                 className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-[var(--accent-color)] transition-colors"
               >
                 {link.label}

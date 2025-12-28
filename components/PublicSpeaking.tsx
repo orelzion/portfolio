@@ -1,6 +1,5 @@
 'use client'
 
-import { track } from '@vercel/analytics'
 import { SectionWrapper } from './ui/SectionWrapper'
 import { publicSpeaking } from '@/lib/content'
 
@@ -25,7 +24,6 @@ export function PublicSpeaking({ highlightTalks = [] }: PublicSpeakingProps) {
                 href: talk.url,
                 target: '_blank',
                 rel: 'noopener noreferrer',
-                onClick: () => track('talk_click', { event: talk.event, title: talk.title }),
               }
             : {}
 
