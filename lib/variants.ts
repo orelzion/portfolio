@@ -1,4 +1,4 @@
-export type VariantKey = 'default' | 'anthropic' | 'netflix' | 'meta'
+export type VariantKey = 'default' | 'anthropic' | 'netflix' | 'meta' | 'yahoo'
 
 export interface VariantConfig {
   tagline: string
@@ -57,6 +57,16 @@ export const variants: Record<VariantKey, VariantConfig> = {
     prioritySections: ['speaking', 'community', 'projects', 'experience'],
     highlightKeywords: ['cross-functional', 'Coordinating', 'Re-architected', 'guild', 'org', 'quickly', 'stakeholder'],
   },
+  yahoo: {
+    tagline: 'Staff Engineer | Mobile Platform & User Experience',
+    description:
+      'Building consumer-facing mobile applications at scale with focus on performance, reliability, and user engagement.',
+    accentColor: '#7B0099',
+    accentColorDark: '#5A0070',
+    profileImage: '/profile/profile_main.png',
+    prioritySections: ['experience', 'speaking', 'community', 'projects'],
+    highlightKeywords: ['Led', 'Built', 'Re-architected', 'CI/CD', 'Play Store', 'cross-functional'],
+  },
 }
 
 export function getVariantConfig(ref: string | null): {
@@ -64,7 +74,7 @@ export function getVariantConfig(ref: string | null): {
   config: VariantConfig
   isTargetedVisit: boolean
 } {
-  const validVariants: VariantKey[] = ['anthropic', 'netflix', 'meta']
+  const validVariants: VariantKey[] = ['anthropic', 'netflix', 'meta', 'yahoo']
   const variant: VariantKey = validVariants.includes(ref as VariantKey)
     ? (ref as VariantKey)
     : 'default'
