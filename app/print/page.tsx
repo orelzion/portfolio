@@ -39,7 +39,7 @@ function ContactSection() {
 
 function SummarySection({ config }: { config: VariantConfig }) {
   return (
-    <section className="print-section">
+    <section className="print-section print-summary-section">
       <h2 className="print-section-title" style={{ borderColor: config.accentColor }}>
         Summary
       </h2>

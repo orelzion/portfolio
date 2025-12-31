@@ -69,10 +69,16 @@
   page-break-inside: avoid;
 }
 
+/* Prevent page break after Summary to keep Experience on first page */
+.print-summary-section {
+  page-break-after: avoid;
+  margin-bottom: 0.1in;
+}
+
 /* Ensure Experience section starts on first page */
 .print-experience-section {
   page-break-before: avoid;
-  margin-top: 0.1in;
+  margin-top: 0.05in;
 }
 
 .print-section-title {
@@ -91,13 +97,13 @@
   font-size: 10pt;
   font-weight: 600;
   color: #222;
-  margin: 0 0 0.03in 0;
+  margin: 0 0 0.02in 0;
 }
 
 .print-description {
   font-size: 9.5pt;
   color: #333;
-  margin: 0 0 0.06in 0;
+  margin: 0 0 0.04in 0;
 }
 
 .print-highlights {
@@ -108,7 +114,7 @@
 }
 
 .print-highlights li {
-  margin-bottom: 0.02in;
+  margin-bottom: 0.015in;
 }
 
 /* Experience */
