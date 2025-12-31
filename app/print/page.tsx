@@ -73,7 +73,7 @@ function ExperienceSection({
   }
 
   return (
-    <section className="print-section">
+    <section className="print-section print-experience-section">
       <h2 className="print-section-title" style={{ borderColor: config.accentColor }}>
         Professional Experience
       </h2>

@@ -63,7 +63,7 @@ export const variants: Record<VariantKey, VariantConfig> = {
       'Building consumer-facing mobile applications at scale with focus on performance, reliability, and user engagement.',
     accentColor: '#7B0099',
     accentColorDark: '#5A0070',
-    profileImage: '/profile/profile_main.png',
+    profileImage: '/profile/profile_yahoo.png',
     prioritySections: ['experience', 'speaking', 'community', 'projects'],
     highlightKeywords: ['Led', 'Built', 'Re-architected', 'CI/CD', 'Play Store', 'cross-functional'],
   },
