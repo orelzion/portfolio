@@ -247,14 +247,22 @@ async function PrintContent({ searchParams }: PrintPageProps) {
     }
   }
 
-  // Get ordered sections based on variant priority
-  const orderedSections = config.prioritySections.map((key) => getSectionComponent(key))
+  // For PDF, always put Experience first (after Summary) for ATS and to ensure it's on first page
+  // Then add other sections in their priority order (excluding experience since it's already first)
+  const otherSections = config.prioritySections
+    .filter((key) => key !== 'experience')
+    .map((key) => getSectionComponent(key))
+  
+  const experienceSection = getSectionComponent('experience')
 
   return (
     <div className="print-container" style={{ '--accent-color': config.accentColor } as React.CSSProperties}>
       <ContactSection />
       <SummarySection config={config} />
-      {orderedSections}
+      {experienceSection}
+      <div className="print-page-break-before">
+        {otherSections}
+      </div>
     </div>
   )
 }
