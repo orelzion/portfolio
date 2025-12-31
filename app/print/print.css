@@ -69,15 +69,14 @@
   page-break-inside: avoid;
 }
 
-/* Prevent page break after Summary to keep Experience on first page */
+/* Make Summary section compact to fit on first page with Experience */
 .print-summary-section {
-  page-break-after: avoid;
-  margin-bottom: 0.1in;
+  margin-bottom: 0.08in;
 }
 
-/* Ensure Experience section starts on first page */
+/* Ensure Experience section can start on same page as Summary */
 .print-experience-section {
-  page-break-before: avoid;
+  page-break-before: auto;
   margin-top: 0.05in;
 }
 
@@ -92,29 +91,37 @@
   border-bottom: 1.5px solid var(--accent-color);
 }
 
-/* Summary */
+/* Summary - very compact to fit on first page */
+.print-summary-section .print-section-title {
+  margin-bottom: 0.04in;
+  padding-bottom: 0.02in;
+}
+
 .print-tagline {
-  font-size: 10pt;
+  font-size: 9.5pt;
   font-weight: 600;
   color: #222;
-  margin: 0 0 0.02in 0;
+  margin: 0 0 0.015in 0;
+  line-height: 1.2;
 }
 
 .print-description {
-  font-size: 9.5pt;
+  font-size: 9pt;
   color: #333;
-  margin: 0 0 0.04in 0;
+  margin: 0 0 0.03in 0;
+  line-height: 1.25;
 }
 
 .print-highlights {
   margin: 0;
   padding-left: 0.15in;
-  font-size: 9.5pt;
+  font-size: 9pt;
   color: #333;
 }
 
 .print-highlights li {
-  margin-bottom: 0.015in;
+  margin-bottom: 0.01in;
+  line-height: 1.3;
 }
 
 /* Experience */
