@@ -73,7 +73,7 @@ export const variants: Record<VariantKey, VariantConfig> = {
       'Building mobile applications that leverage AI to create intuitive, intelligent user experiences at scale.',
     accentColor: '#10A37F',
     accentColorDark: '#0d8265',
-    profileImage: '/profile/profile_main.png',
+    profileImage: '/profile/profile_openai.png',
     prioritySections: ['experience', 'speaking', 'community', 'projects'],
     highlightKeywords: ['chat', 'AI', 'Jetpack Compose', 'Built', 'Led', 'redesign'],
   },
