@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import type { VariantKey } from '@/lib/variants'
+import { trackDownload } from '@/lib/analytics'
 
 interface DownloadButtonProps {
   variant: VariantKey
@@ -16,6 +17,9 @@ export function DownloadButton({ variant, className, isMobile = false }: Downloa
     if (isLoading) return
 
     setIsLoading(true)
+
+    // Track download event
+    trackDownload(variant)
 
     try {
       const url = `/api/generate-pdf${variant !== 'default' ? `?ref=${variant}` : ''}`
@@ -101,5 +105,6 @@ export function DownloadButton({ variant, className, isMobile = false }: Downloa
     </button>
   )
 }
+
 
 

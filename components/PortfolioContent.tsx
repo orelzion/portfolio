@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect } from 'react'
 import { useVariant } from '@/hooks/useVariant'
+import { trackPageView } from '@/lib/analytics'
 import { Hero } from './Hero'
 import { Experience } from './Experience'
 import { PublicSpeaking } from './PublicSpeaking'
@@ -19,6 +20,11 @@ function PortfolioInner() {
     document.documentElement.style.setProperty('--accent-color', config.accentColor)
     document.documentElement.style.setProperty('--accent-color-dark', config.accentColorDark)
   }, [config.accentColor, config.accentColorDark])
+
+  // Track page view with ref parameter
+  useEffect(() => {
+    trackPageView(variant !== 'default' ? variant : null)
+  }, [variant])
 
   // Section components mapped by key
   const sectionMap = {

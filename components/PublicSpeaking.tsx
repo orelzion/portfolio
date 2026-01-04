@@ -2,12 +2,16 @@
 
 import { SectionWrapper } from './ui/SectionWrapper'
 import { publicSpeaking } from '@/lib/content'
+import { trackSpeakingLink } from '@/lib/analytics'
+import { useVariant } from '@/hooks/useVariant'
 
 interface PublicSpeakingProps {
   highlightTalks?: string[]
 }
 
 export function PublicSpeaking({ highlightTalks = [] }: PublicSpeakingProps) {
+  const { variant } = useVariant()
+  
   const isHighlighted = (eventName: string): boolean => {
     return highlightTalks.some((t) => eventName.toLowerCase().includes(t.toLowerCase()))
   }
@@ -31,6 +35,7 @@ export function PublicSpeaking({ highlightTalks = [] }: PublicSpeakingProps) {
             <Component
               key={talk.title}
               {...linkProps}
+              onClick={hasLink ? () => trackSpeakingLink(talk.event, variant) : undefined}
               className={`group block p-5 rounded-xl transition-all duration-300 ${
                 highlighted
                   ? 'bg-[var(--accent-color)]/10 border-2 border-[var(--accent-color)]/50'
