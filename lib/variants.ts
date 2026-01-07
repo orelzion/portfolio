@@ -83,7 +83,7 @@ export const variants: Record<VariantKey, VariantConfig> = {
       'Building design systems and component libraries that empower designers and engineers to create consistent, high-quality mobile experiences at scale.',
     accentColor: '#FF3000',
     accentColorDark: '#CC2600',
-    profileImage: '/profile/profile_main.png',
+    profileImage: '/profile/profile_doordash.png',
     prioritySections: ['experience', 'speaking', 'community', 'projects'],
     highlightKeywords: ['Jetpack Compose', 'Re-architected', 'Led', 'Coordinating', 'Mentoring', 'Built', 'Refactor', 'cross-functional'],
   },
