@@ -1,4 +1,4 @@
-export type VariantKey = 'default' | 'anthropic' | 'netflix' | 'meta' | 'yahoo' | 'openai'
+export type VariantKey = 'default' | 'anthropic' | 'netflix' | 'meta' | 'yahoo' | 'openai' | 'doordash'
 
 export interface VariantConfig {
   tagline: string
@@ -77,6 +77,16 @@ export const variants: Record<VariantKey, VariantConfig> = {
     prioritySections: ['experience', 'speaking', 'community', 'projects'],
     highlightKeywords: ['chat', 'AI', 'Jetpack Compose', 'Built', 'Led', 'redesign'],
   },
+  doordash: {
+    tagline: 'Senior Engineer | Design Infrastructure & Component Systems',
+    description:
+      'Building design systems and component libraries that empower designers and engineers to create consistent, high-quality mobile experiences at scale.',
+    accentColor: '#FF3000',
+    accentColorDark: '#CC2600',
+    profileImage: '/profile/profile_main.png',
+    prioritySections: ['experience', 'speaking', 'community', 'projects'],
+    highlightKeywords: ['Jetpack Compose', 'Re-architected', 'Led', 'Coordinating', 'Mentoring', 'Built', 'Refactor', 'cross-functional'],
+  },
 }
 
 export function getVariantConfig(ref: string | null): {
@@ -84,7 +94,7 @@ export function getVariantConfig(ref: string | null): {
   config: VariantConfig
   isTargetedVisit: boolean
 } {
-  const validVariants: VariantKey[] = ['anthropic', 'netflix', 'meta', 'yahoo', 'openai']
+  const validVariants: VariantKey[] = ['anthropic', 'netflix', 'meta', 'yahoo', 'openai', 'doordash']
   const variant: VariantKey = validVariants.includes(ref as VariantKey)
     ? (ref as VariantKey)
     : 'default'
