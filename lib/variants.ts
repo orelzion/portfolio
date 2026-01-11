@@ -1,4 +1,4 @@
-export type VariantKey = 'default' | 'anthropic' | 'netflix' | 'meta' | 'yahoo' | 'openai' | 'doordash'
+export type VariantKey = 'default' | 'anthropic' | 'netflix' | 'meta' | 'yahoo' | 'openai' | 'doordash' | 'reddit'
 
 export interface VariantConfig {
   tagline: string
@@ -87,6 +87,16 @@ export const variants: Record<VariantKey, VariantConfig> = {
     prioritySections: ['experience', 'speaking', 'community', 'projects'],
     highlightKeywords: ['Jetpack Compose', 'Re-architected', 'Led', 'Coordinating', 'Mentoring', 'Built', 'Refactor', 'cross-functional'],
   },
+  reddit: {
+    tagline: 'Staff Android Engineer | Scale & Product',
+    description:
+      '13+ years of experience in architecting high-scale Android applications with a strong product-oriented mindset. Expert in modular design and re-architecting legacy systems for millions of users. Passionate about bridging technical excellence with user-centric experiences. Droidcon Speaker and mentor.',
+    accentColor: '#FF4500',
+    accentColorDark: '#CC3700',
+    profileImage: '/profile/profile_reddit.png',
+    prioritySections: ['experience', 'speaking', 'community', 'projects'],
+    highlightKeywords: ['Mobile Team Lead', 'Leading', 'Led', 'chat', 'redesign', 'Refactored', 'Re-architected', 'CI/CD', 'Coordinating', 'Mentoring'],
+  },
 }
 
 export function getVariantConfig(ref: string | null): {
@@ -94,7 +104,7 @@ export function getVariantConfig(ref: string | null): {
   config: VariantConfig
   isTargetedVisit: boolean
 } {
-  const validVariants: VariantKey[] = ['anthropic', 'netflix', 'meta', 'yahoo', 'openai', 'doordash']
+  const validVariants: VariantKey[] = ['anthropic', 'netflix', 'meta', 'yahoo', 'openai', 'doordash', 'reddit']
   const variant: VariantKey = validVariants.includes(ref as VariantKey)
     ? (ref as VariantKey)
     : 'default'
