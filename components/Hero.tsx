@@ -13,21 +13,56 @@ interface HeroProps {
 }
 
 export function Hero({ config, isTargetedVisit, variant }: HeroProps) {
+  const hasCustomBg = !!config.heroBgColor
+  
+  const heroBgStyle = hasCustomBg
+    ? {
+        backgroundColor: config.heroBgColor,
+        marginLeft: '-1rem',
+        marginRight: '-1rem',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
+        borderRadius: '1rem',
+      }
+    : {}
+
+  // Text classes that adapt when there's a custom background (force dark text for readability on light bg)
+  const nameClass = hasCustomBg 
+    ? "text-4xl md:text-5xl font-bold text-zinc-900 mb-3"
+    : "text-4xl md:text-5xl font-bold text-zinc-900 dark:text-zinc-100 mb-3"
+  
+  const descriptionClass = hasCustomBg
+    ? "text-lg text-zinc-700 mb-6 max-w-xl"
+    : "text-lg text-zinc-600 dark:text-zinc-400 mb-6 max-w-xl"
+  
+  const emailButtonClass = hasCustomBg
+    ? "inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-900 bg-white/80 rounded-lg hover:bg-white transition-colors"
+    : "inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+  
+  const linkClass = hasCustomBg
+    ? "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors"
+    : "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-[var(--accent-color)] transition-colors"
+
   return (
-    <section className="py-12 md:py-20" itemScope itemType="https://schema.org/Person">
+    <section 
+      className="py-12 md:py-20" 
+      itemScope 
+      itemType="https://schema.org/Person"
+      style={heroBgStyle}
+    >
       <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
         {/* Profile Image */}
         <div className="flex-shrink-0">
           <ProfileImage
             src={config.profileImage}
             alt={`${personalInfo.name} - ${config.tagline}`}
-            className="w-40 h-40 md:w-48 md:h-48 ring-4 ring-[var(--accent-color)]/20 transition-all duration-300"
+            className={`w-40 h-40 md:w-48 md:h-48 ring-4 ${hasCustomBg ? 'ring-zinc-900/20' : 'ring-[var(--accent-color)]/20'} transition-all duration-300`}
           />
         </div>
 
         {/* Content */}
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-zinc-100 mb-3" itemProp="name">
+          <h1 className={nameClass} itemProp="name">
             {personalInfo.name}
           </h1>
 
@@ -35,7 +70,7 @@ export function Hero({ config, isTargetedVisit, variant }: HeroProps) {
             {config.tagline}
           </p>
 
-          <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-6 max-w-xl" itemProp="description">
+          <p className={descriptionClass} itemProp="description">
             {config.description}
           </p>
 
@@ -53,7 +88,7 @@ export function Hero({ config, isTargetedVisit, variant }: HeroProps) {
           <div className="flex flex-wrap justify-center md:justify-start gap-3">
             <a
               href={`mailto:${personalInfo.email}`}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+              className={emailButtonClass}
               itemProp="email"
               onClick={() => trackSocialLink('email', variant)}
             >
@@ -68,7 +103,7 @@ export function Hero({ config, isTargetedVisit, variant }: HeroProps) {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer me"
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-[var(--accent-color)] transition-colors"
+                className={linkClass}
                 itemProp="sameAs"
                 onClick={() => trackSocialLink(link.label, variant)}
               >

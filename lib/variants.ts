@@ -1,4 +1,4 @@
-export type VariantKey = 'default' | 'anthropic' | 'netflix' | 'meta' | 'yahoo' | 'openai' | 'doordash' | 'reddit'
+export type VariantKey = 'default' | 'anthropic' | 'netflix' | 'meta' | 'yahoo' | 'openai' | 'doordash' | 'reddit' | 'snap'
 
 export interface VariantConfig {
   tagline: string
@@ -13,6 +13,8 @@ export interface VariantConfig {
   highlightTalks?: string[]
   // Highlight writing section
   highlightWriting?: boolean
+  // Optional background color for hero section
+  heroBgColor?: string
 }
 
 export const variants: Record<VariantKey, VariantConfig> = {
@@ -97,6 +99,19 @@ export const variants: Record<VariantKey, VariantConfig> = {
     prioritySections: ['experience', 'speaking', 'community', 'projects'],
     highlightKeywords: ['Mobile Team Lead', 'Leading', 'Led', 'chat', 'redesign', 'Refactored', 'Re-architected', 'CI/CD', 'Coordinating', 'Mentoring'],
   },
+  snap: {
+    tagline: 'Senior Android Engineer | AI-First & Consumer Experiences',
+    description:
+      '13+ years building delightful, large-scale Android applications. Expert in Kotlin, modern architecture, and AI-assisted development with Cursor. Passionate about consumer-facing products that bring joy to millions. Droidcon Speaker and advocate for AI-enhanced workflows.',
+    accentColor: '#262626',
+    accentColorDark: '#171717',
+    profileImage: '/profile/profile_main.png',
+    prioritySections: ['experience', 'speaking', 'writing', 'community', 'projects'],
+    highlightKeywords: ['AI', 'Cursor', 'Jetpack Compose', 'Led', 'Built', 'cross-functional', 'product', 'design', 'iOS', 'performant', 'Re-architected', 'Mentoring', 'efficiency'],
+    highlightTalks: ['Droidcon Paris', 'TLV Meetup'],
+    highlightWriting: true,
+    heroBgColor: '#FFFC00',
+  },
 }
 
 export function getVariantConfig(ref: string | null): {
@@ -104,7 +119,7 @@ export function getVariantConfig(ref: string | null): {
   config: VariantConfig
   isTargetedVisit: boolean
 } {
-  const validVariants: VariantKey[] = ['anthropic', 'netflix', 'meta', 'yahoo', 'openai', 'doordash', 'reddit']
+  const validVariants: VariantKey[] = ['anthropic', 'netflix', 'meta', 'yahoo', 'openai', 'doordash', 'reddit', 'snap']
   const variant: VariantKey = validVariants.includes(ref as VariantKey)
     ? (ref as VariantKey)
     : 'default'

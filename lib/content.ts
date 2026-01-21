@@ -41,6 +41,7 @@ export const experience: ExperienceItem[] = [
       'Coordinating with cross-functional teams (backend, design, product) to align on goals, timelines, and execution.',
       'Managing sprint planning, progress tracking, and stakeholder communication across the organization.',
       'Mentoring engineers through regular 1:1s and feedback cycles, supporting both technical growth and ownership mindset.',
+      'Championed AI-assisted development across the team using Cursor for daily coding tasks, generating test documentation, and crafting Jira descriptions to improve alignment and boost team efficiency.',
     ],
   },
   {
